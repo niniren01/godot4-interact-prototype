@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=3 uid="uid://c4jxenacyg5je"]
+
+[ext_resource type="PackedScene" uid="uid://j4kp2coyij4j" path="res://character/player/player.tscn" id="2_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://cvbgtlas5bgav" path="res://steer_wheel.tscn" id="2_tlwt5"]
+[ext_resource type="PackedScene" uid="uid://csk3c5i3vh0m8" path="res://button.tscn" id="3_tlwt5"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f3sb7"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_fj7yv"]
+sky_material = SubResource("ProceduralSkyMaterial_f3sb7")
+
+[sub_resource type="Environment" id="Environment_tlwt5"]
+background_mode = 2
+sky = SubResource("Sky_fj7yv")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f3sb7"]
+albedo_color = Color(0.43, 0.0989, 0.0989, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fj7yv"]
+size = Vector2(40, 40)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_f3sb7"]
+points = PackedVector3Array(-20, 0, -20, -20, 0, 20, 20, 0, -20, 20, 0, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fj7yv"]
+albedo_color = Color(0, 0.9, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tlwt5"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_aqk2v"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tlwt5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0.489461, -0.632071, 0.600762, -0.10212, 0.64264, 0.759332, 0, 13.2103, 6.81619)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("2_fj7yv")]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="Ground" type="MeshInstance3D" parent="Environment"]
+material_override = SubResource("StandardMaterial3D_f3sb7")
+mesh = SubResource("PlaneMesh_fj7yv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment/Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ground/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_f3sb7")
+
+[node name="Block" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(3.32287, 0, 0, 0, 7.24995, 0, 0, 0, 1, 0, 2.27702, -4.0879)
+material_override = SubResource("StandardMaterial3D_fj7yv")
+mesh = SubResource("BoxMesh_tlwt5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment/Block"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Block/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_aqk2v")
+
+[node name="SteerWheel" parent="." instance=ExtResource("2_tlwt5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.29389, -3.34185)
+
+[node name="Button" parent="." instance=ExtResource("3_tlwt5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75416, 0, -1.76075)
+prompt_message = "open the gate"
+
+[node name="Button2" parent="." instance=ExtResource("3_tlwt5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.28006, 0, -1.76075)
+prompt_message = "fire!"
+prompt_input = "move_forward"

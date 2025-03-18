@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://csk3c5i3vh0m8"]
+
+[ext_resource type="PackedScene" uid="uid://bu1l1ip3m0git" path="res://assets/button.blend" id="1_r04n3"]
+[ext_resource type="Script" uid="uid://dd4t4p8i2ylxd" path="res://button.gd" id="1_vxja4"]
+[ext_resource type="AudioStream" uid="uid://d0g6oxdlwc6fc" path="res://assets/revolver_shot1.wav" id="3_lt4la"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r04n3"]
+size = Vector3(1.8, 1, 1.8)
+
+[node name="Button" type="StaticBody3D"]
+script = ExtResource("1_vxja4")
+
+[node name="MeshInstance" parent="." instance=ExtResource("1_r04n3")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_r04n3")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_lt4la")
+
+[connection signal="interacted" from="." to="." method="_on_interacted"]

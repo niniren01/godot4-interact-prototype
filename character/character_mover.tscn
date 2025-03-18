@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cncye6wd07xbi"]
+
+[ext_resource type="Script" uid="uid://x6bxa0sbmgkq" path="res://character/character_mover.gd" id="1_ljvft"]
+
+[node name="CharacterMover" type="Node3D"]
+script = ExtResource("1_ljvft")

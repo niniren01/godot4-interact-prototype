@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://j4kp2coyij4j"]
+
+[ext_resource type="Script" uid="uid://cphvsp5340k2j" path="res://character/player/player.gd" id="1_oul6g"]
+[ext_resource type="PackedScene" uid="uid://cncye6wd07xbi" path="res://character/character_mover.tscn" id="2_8eijk"]
+[ext_resource type="PackedScene" uid="uid://dp7rji16qo042" path="res://interact/interact_ray.tscn" id="2_gtsfv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kqu6x"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_oul6g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_kqu6x")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="InteractRay" parent="Head" instance=ExtResource("2_gtsfv")]
+
+[node name="CharacterMover" parent="." instance=ExtResource("2_8eijk")]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="ColorRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -2.5
+offset_right = 2.5
+offset_bottom = 2.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.843184, 0.843184, 0.843184, 1)
